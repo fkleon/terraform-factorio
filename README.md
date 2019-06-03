@@ -18,19 +18,20 @@ backups to S3.
 
 * Configure and create stateful infrastructure:
 
-    cd state/
-    terraform init && terraform apply
-    terraform output
-
-    # Take note of bucket name
-    bucket_name = factorio-20190602222917314000000001
+      cd state/
+      terraform init && terraform apply
+      terraform output
+      
+      # Take note of bucket name in output
+      bucket_name = factorio-20190602222917314000000001
 
 * Configure stateless infrastructure:
 
-    cd instance/
-    terraform init
-    # Add correct SSH keys and bucket_name from above
-    vim terraform.tfvars
+      cd instance/
+      terraform init
+    
+      # Add correct SSH keys and bucket_name from above
+      vim terraform.tfvars
 
 * Configure Factorio server (see [Setting up a Linux Factorio server](https://wiki.factorio.com/Multiplayer#Setting_up_a_Linux_Factorio_server)):
 
@@ -43,8 +44,8 @@ Create stateless infrastructure:
     cd instance/
     terraform apply
     terraform output
-
-    # IP of the game server
+    
+    # Public IP of the game server
     ip = 3.121.142.76
 
 The game server is automatically started and the most recent save games from S3
