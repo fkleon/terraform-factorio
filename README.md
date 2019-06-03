@@ -73,3 +73,4 @@ Several systemd services are provisioned to the server instance:
 * `factorio-restore.service`: One shot service that restores save games from S3.
 * `factorio-backup.service`: One shot service that backs up save games to S3.
 
+You can use the `connect.sh` script to connect to the game server via SSH.
