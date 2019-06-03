@@ -1,8 +1,75 @@
 # Headless Factorio server
 
-Terraform provisioning scripts for a headless Factorio server in AWS.
+Terraform modules to provision a headless Factorio server in AWS, with save game
+backups to S3.
 
-## Howto
+## Quick start
 
-* Put AWS credentials in `~/.aws/credentials`
-* Adapt `terraform.tfvars`
+### Requirements
+
+* [Terraform](https://www.terraform.io) version 0.12.x
+* Amazon AWS account and [access keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys)
+* SSH keypair for the EC2 instance
+
+### Initial setup
+
+* Put AWS credentials in `~/.aws/credentials` (`aws_access_key_id` and
+  `aws_secret_access_key`)
+
+* Configure and create stateful infrastructure:
+
+    cd state/
+    terraform init && terraform apply
+    terraform output
+
+    # Take note of bucket name
+    bucket_name = factorio-20190602222917314000000001
+
+* Configure stateless infrastructure:
+
+    cd instance/
+    terraform init
+    # Add correct SSH keys and bucket_name from above
+    vim terraform.tfvars
+
+* Configure Factorio server (see [Setting up a Linux Factorio server](https://wiki.factorio.com/Multiplayer#Setting_up_a_Linux_Factorio_server)):
+
+    vim conf/server-settings.json
+
+### Game server
+
+Create stateless infrastructure:
+
+    cd instance/
+    terraform apply
+    terraform output
+
+    # IP of the game server
+    ip = 3.121.142.76
+
+The game server is automatically started and the most recent save games from S3
+are restored onto the instance.
+
+Destroy infrastructure after use:
+
+    cd instance/
+    terraform destroy
+
+This will automatically backup the save games to the specified S3 bucket.
+
+## Details
+
+* `state/` contains the Terraform module for the stateful server infrastructure.
+  This includes the S3 bucket holding game state inbetween games, i.e. while the
+  server instance does not exist.
+* `instance/` contains the Terraform module for the stateless server
+  infrastructure. This includes the EC2 instance that runs the game server.
+
+### Services
+
+Several systemd services are provisioned to the server instance:
+
+* `factorio-headless.service`: Service to start/stop the headless game server.
+* `factorio-restore.service`: One shot service that restores save games from S3.
+* `factorio-backup.service`: One shot service that backs up save games to S3.
+

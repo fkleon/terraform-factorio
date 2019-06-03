@@ -8,6 +8,10 @@ Restart=on-failure
 Type=simple
 User=factorio
 KillSignal=SIGINT
+ProtectHome=yes
+ReadWritePaths=/opt/factorio
+PrivateTmp=true
+After=cloud-final.service
 
 [Install]
 WantedBy=multi-user.target

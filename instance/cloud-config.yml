@@ -1,7 +1,10 @@
 #cloud-config
+repo_update: true
+repo_upgrade: security
 package_upgrade: true
 packages:
   - nvme-cli
+  - awscli
 bootcmd:
   - test -z "$(blkid {$ebs_device_name})" && mkfs -t ext4 -L factorio ${ebs_device_name}
 mounts:
@@ -9,9 +12,8 @@ mounts:
 runcmd:
   - adduser --disabled-login --gecos GECOS --no-create-home --home /opt/factorio factorio
   - mkdir -p /mnt/factorio/saves
+  - chown factorio. -R /mnt/factorio/saves
   - curl -L "https://www.factorio.com/get-download/${factorio_version}/headless/linux64" -o /opt/factorio.tar.gz
-  - su factorio
-  - cd /opt
-  - tar xvf factorio.tar.gz
+  - tar -C /opt -x -f /opt/factorio.tar.gz
   - chown factorio. -R /opt/factorio
   - ln -s /mnt/factorio/saves /opt/factorio/saves
