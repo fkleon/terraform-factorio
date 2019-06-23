@@ -1,5 +1,7 @@
 # Factorio server version
 factorio_version = "0.17.45"
+# Factorio save game
+#factorio_save_game = "Zocken"
 
 # Factorio server instance: NVMe instance
 #instance_type = "c5.large"

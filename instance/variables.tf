@@ -69,3 +69,9 @@ variable "factorio_version" {
   default     = "0.17.45"
   description = "Version of Factorio to install on the server."
 }
+
+variable "factorio_save_game" {
+  type        = string
+  default     = ""
+  description = "Name of the Factorio save game to load. Leave empty to load latest save game."
+}

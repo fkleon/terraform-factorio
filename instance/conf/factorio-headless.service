@@ -3,7 +3,8 @@ Description=Factorio Server
 After=cloud-final.service
 
 [Service]
-ExecStart=/opt/factorio/bin/x64/factorio --start-server-load-latest --server-settings /etc/factorio/server-settings.json
+EnvironmentFile=/etc/factorio/factorio-environment
+ExecStart=/opt/factorio/bin/x64/factorio $SAVE_GAME_ARG --server-settings /etc/factorio/server-settings.json
 WorkingDirectory=/opt/factorio
 Restart=on-failure
 Type=simple

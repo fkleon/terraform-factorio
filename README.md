@@ -35,7 +35,7 @@ backups to S3.
 
 * Configure Factorio server (see [Setting up a Linux Factorio server](https://wiki.factorio.com/Multiplayer#Setting_up_a_Linux_Factorio_server)):
 
-    vim conf/server-settings.json
+      vim conf/server-settings.json
 
 ### Game server
 
@@ -75,3 +75,14 @@ Several systemd services are provisioned to the server instance:
 * `factorio-backup.service`: One shot service that backs up save games to S3.
 
 You can use the `connect.sh` script to connect to the game server via SSH.
+
+### Limitations
+
+Currently there is no support for creating a fresh game, just for loading existing
+save games. The headless Factorio server expects the `--create FILE` argument to
+create a game. The workaround is to create a game locally, export the save game,
+and use that.
+
+This provisioning code populates `--start-server FILE` (to load a named save game) or
+`-start-server-load-latest` (to load the latest save game), depending on whether
+the `factorio_save_game` variable is set.

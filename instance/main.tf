@@ -11,6 +11,15 @@ provider "template" {
   version = "~> 2.1"
 }
 
+locals {
+  save_game_dir = "/opt/factorio/saves"
+  # To load named save game: --start-server ${path}/${name}.zip
+  # To load latest save game: --start-server-load-latest
+  save_game_arg = (var.factorio_save_game != "" ?
+    "--start-server ${local.save_game_dir}/${var.factorio_save_game}.zip'" :
+    "--start-server-load-latest")
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -100,7 +109,10 @@ resource "aws_instance" "factorio" {
   }
 
   provisioner "file" {
-    content     = "S3_BUCKET=${var.bucket_name}"
+    content     = <<ENV
+S3_BUCKET=${var.bucket_name}
+SAVE_GAME_ARG=${local.save_game_arg}
+ENV
     destination = "/tmp/factorio-environment"
   }
 
