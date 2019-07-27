@@ -16,4 +16,4 @@ runcmd:
   - curl -L "https://www.factorio.com/get-download/${factorio_version}/headless/linux64" -o /opt/factorio.tar.gz
   - tar -C /opt -x -f /opt/factorio.tar.gz
   - chown factorio. -R /opt/factorio
-  - ln -s /mnt/factorio/saves /opt/factorio/saves
+  - ln -s /mnt/factorio/saves ${factorio_save_game_dir}
