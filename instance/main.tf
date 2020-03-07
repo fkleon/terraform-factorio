@@ -79,12 +79,6 @@ resource "aws_security_group" "instance" {
   }
 }
 
-/*
-resource "aws_eip" "ip" {
-  instance = aws_instance.factorio.id
-}
-*/
-
 resource "aws_instance" "factorio" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
@@ -139,7 +133,7 @@ ENV
 
   # Stop headless server and backup save games to S3 on destroy.
   provisioner "remote-exec" {
-    when = "destroy"
+    when = destroy
     inline = [
       "sudo systemctl stop factorio-headless.service",
       "sudo systemctl start factorio-backup.service",
