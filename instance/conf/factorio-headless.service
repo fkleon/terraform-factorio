@@ -4,7 +4,7 @@ After=cloud-final.service
 
 [Service]
 EnvironmentFile=/etc/factorio/factorio-environment
-ExecStart=/opt/factorio/bin/x64/factorio $SAVE_GAME_ARG --server-settings /etc/factorio/server-settings.json
+ExecStart=/opt/factorio/bin/x64/factorio $SAVE_GAME_ARG --server-settings /etc/factorio/server-settings.json --server-adminlist /etc/factorio/server-adminlist.json
 WorkingDirectory=/opt/factorio
 Restart=on-failure
 Type=simple

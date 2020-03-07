@@ -116,6 +116,7 @@ ENV
     inline = [
       "sudo install -m 644 -o root -g root /tmp/factorio-environment -D -t /etc/factorio",
       "sudo install -m 644 -o root -g root /tmp/conf/server-settings.json /etc/factorio",
+      "sudo install -m 644 -o root -g root /tmp/conf/server-adminlist.json /etc/factorio",
       "sudo install -m 644 -o root -g root /tmp/conf/factorio-headless.service /etc/systemd/system",
       "sudo install -m 644 -o root -g root /tmp/conf/factorio-backup.service /etc/systemd/system",
       "sudo install -m 644 -o root -g root /tmp/conf/factorio-restore.service /etc/systemd/system",
