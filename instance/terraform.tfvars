@@ -1,5 +1,5 @@
 # Factorio server version
-factorio_version = "0.17.45"
+factorio_version = "0.18.15"
 # Factorio save game
 #factorio_save_game = "Zocken"
 

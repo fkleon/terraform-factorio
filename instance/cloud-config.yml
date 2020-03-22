@@ -11,9 +11,7 @@ mounts:
   - [ "${ebs_device_name}", "/mnt/factorio", "ext4", "defaults,nofail", "0", "2" ]
 runcmd:
   - adduser --disabled-login --gecos GECOS --no-create-home --home /opt/factorio factorio
-  - mkdir -p /mnt/factorio/saves
-  - chown factorio. -R /mnt/factorio/saves
   - curl -L "https://www.factorio.com/get-download/${factorio_version}/headless/linux64" -o /opt/factorio.tar.gz
   - tar -C /opt -x -f /opt/factorio.tar.gz
+  - mkdir -p /opt/factorio/saves
   - chown factorio. -R /opt/factorio
-  - ln -s /mnt/factorio/saves ${factorio_save_game_dir}
