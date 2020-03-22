@@ -11,6 +11,10 @@ provider "template" {
   version = "~> 2.1"
 }
 
+provider "tls" {
+  version = "~> 2.1"
+}
+
 locals {
   save_game_dir = "/opt/factorio/saves"
   # To load named save game: --start-server ${path}/${name}.zip
@@ -45,9 +49,13 @@ data "template_file" "cloud_config" {
   }
 }
 
+resource "tls_private_key" "ssh" {
+  algorithm   = "RSA"
+}
+
 resource "aws_key_pair" "key" {
   key_name   = var.name
-  public_key = var.ssh_public_key
+  public_key = tls_private_key.ssh.public_key_openssh
 }
 
 resource "aws_default_vpc" "default" {
@@ -144,6 +152,6 @@ ENV
     host        = coalesce(self.public_ip, self.private_ip)
     type        = "ssh"
     user        = "ubuntu"
-    private_key = var.ssh_private_key
+    private_key = tls_private_key.ssh.private_key_pem
   }
 }

@@ -43,16 +43,6 @@ variable "ebs_device_name_int" {
   description = "Internal EBS device name to use for Factorio data."
 }
 
-variable "ssh_public_key" {
-  type        = string
-  description = "SSH key to provision into authorized_keys."
-}
-
-variable "ssh_private_key" {
-  type        = string
-  description = "SSH private key to use for file provisioning."
-}
-
 variable "bucket_name" {
   type        = string
   description = "S3 bucket to use for save game backups."

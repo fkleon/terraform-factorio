@@ -9,7 +9,6 @@ backups to S3.
 
 * [Terraform](https://www.terraform.io) version 0.12.x
 * Amazon AWS account and [access keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys)
-* SSH keypair for the EC2 instance
 
 ### Initial setup
 
@@ -30,7 +29,7 @@ backups to S3.
       cd instance/
       terraform init
     
-      # Add correct SSH keys and bucket_name from above
+      # Add correct bucket_name from above
       vim terraform.tfvars
 
 * Configure Factorio server (see [Setting up a Linux Factorio server](https://wiki.factorio.com/Multiplayer#Setting_up_a_Linux_Factorio_server)):
