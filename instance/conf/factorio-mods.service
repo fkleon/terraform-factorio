@@ -1,0 +1,16 @@
+[Unit]
+Description=Factorio Mods
+After=cloud-final.service
+
+[Service]
+EnvironmentFile=/etc/factorio/factorio-environment
+ExecStart=/usr/bin/aws s3 sync s3://${S3_BUCKET}/mods .
+WorkingDirectory=/opt/factorio/mods
+Restart=no
+Type=oneshot
+User=factorio
+ProtectHome=yes
+ReadWritePaths=/opt/factorio/mods
+PrivateTmp=true
+
+[Install]

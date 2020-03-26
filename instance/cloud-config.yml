@@ -12,4 +12,5 @@ runcmd:
   - tar -C /opt -x -f /opt/factorio.tar.gz
   - rm /opt/factorio.tar.gz
   - mkdir -p /opt/factorio/saves
+  - mkdir -p /opt/factorio/mods
   - chown factorio. -R /opt/factorio
