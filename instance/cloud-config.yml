@@ -7,6 +7,8 @@ packages:
   - awscli
 runcmd:
   - set -e
+  - test -z "$(blkid ${ebs_device_path})" && mkfs -t ext4 -L factorio ${ebs_device_path}
+  - mount -t ext4 -o noatime -L factorio /opt
   - adduser --disabled-login --gecos GECOS --no-create-home --home /opt/factorio factorio
   - curl -L "https://www.factorio.com/get-download/${factorio_version}/headless/linux64" -o /opt/factorio.tar.gz
   - tar -C /opt -x -f /opt/factorio.tar.gz

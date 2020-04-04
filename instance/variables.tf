@@ -23,6 +23,12 @@ variable "instance_type" {
   description = "AWS instance type to use for the Factorio server."
 }
 
+variable "ebs_device_path" {
+  type        = string
+  default     = "/dev/xvdf"
+  description = "Internal EBS device name to use for Factorio data."
+}
+
 variable "bucket_name" {
   type        = string
   description = "S3 bucket to use for save game backups."

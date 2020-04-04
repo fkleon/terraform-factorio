@@ -5,6 +5,8 @@ factorio_version = "latest"
 
 # Factorio server instance: NVMe instance
 #instance_type = "c5.large"
+# Internal device name specific to NVMe
+#ebs_device_path = "/dev/nvme1n1"
 
 # S3 bucket for save games. Use bucket name from state module.
 bucket_name = "factorio-123"

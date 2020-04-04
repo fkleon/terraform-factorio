@@ -48,6 +48,7 @@ data "template_file" "cloud_config" {
   template = file("./cloud-config.yml")
   vars = {
     aws_region       = var.region
+    ebs_device_path  = var.ebs_device_path
     factorio_version = var.factorio_version
   }
 }
@@ -141,11 +142,24 @@ ENV
   }
 }
 
+resource "aws_ebs_volume" "factorio_data" {
+  size              = 5
+  availability_zone = aws_instance.factorio.availability_zone
+}
+
+resource "aws_volume_attachment" "factorio_mount" {
+  # NVMe devices are always exposed as /dev/nvme<x>n1
+  device_name = "/dev/sdf"
+  volume_id   = aws_ebs_volume.factorio_data.id
+  instance_id = aws_instance.factorio.id
+}
+
 resource "null_resource" "provision" {
   triggers = {
-    instance_id = aws_instance.factorio.id
-    instance_ip = aws_instance.factorio.public_ip
-    private_key = tls_private_key.ssh.private_key_pem
+    instance_id            = aws_instance.factorio.id
+    instance_ip            = aws_instance.factorio.public_ip
+    private_key            = tls_private_key.ssh.private_key_pem
+    data_volume_attachment = aws_volume_attachment.factorio_mount.volume_id
   }
 
   # Restore save games from S3 and start headless server.
@@ -163,6 +177,10 @@ resource "null_resource" "provision" {
     inline = [
       "sudo systemctl stop factorio-headless.service",
       "sudo systemctl start factorio-backup.service",
+      # Workaround for volume attachment timeout on destroy:
+      # - https://github.com/terraform-providers/terraform-provider-aws/issues/1017
+      # - https://github.com/terraform-providers/terraform-provider-aws/issues/4770
+      "sudo umount /opt || true"
     ]
   }
 
