@@ -152,7 +152,8 @@ resource "null_resource" "provision" {
   # Restore save games from S3 and start headless server.
   provisioner "remote-exec" {
     inline = [
-      "sudo cloud-init status --wait",
+      "set -e",
+      "sudo cloud-init status --wait > /dev/null 2>&1",
       "sudo systemctl start factorio-restore.service && sudo systemctl start factorio-headless.service",
     ]
   }
