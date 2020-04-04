@@ -15,6 +15,10 @@ provider "tls" {
   version = "~> 2.1"
 }
 
+provider "null" {
+  version = "~> 2.1"
+}
+
 locals {
   save_game_dir = "/opt/factorio/saves"
   # To load named save game: --start-server ${path}/${name}.zip
@@ -131,6 +135,21 @@ ENV
     ]
   }
 
+  connection {
+    host        = self.public_ip
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = tls_private_key.ssh.private_key_pem
+  }
+}
+
+resource "null_resource" "provision" {
+  triggers = {
+    instance_id = aws_instance.factorio.id
+    instance_ip = aws_instance.factorio.public_ip
+    private_key = tls_private_key.ssh.private_key_pem
+  }
+
   # Restore save games from S3 and start headless server.
   provisioner "remote-exec" {
     inline = [
@@ -149,9 +168,9 @@ ENV
   }
 
   connection {
-    host        = coalesce(self.public_ip, self.private_ip)
+    host        = self.triggers.instance_ip
     type        = "ssh"
     user        = "ubuntu"
-    private_key = tls_private_key.ssh.private_key_pem
+    private_key = self.triggers.private_key
   }
 }
