@@ -36,7 +36,7 @@ variable "instance_profile" {
 
 variable "factorio_version" {
   type        = string
-  default     = "0.17.45"
+  default     = "latest"
   description = "Version of Factorio to install on the server."
 }
 
