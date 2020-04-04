@@ -93,7 +93,6 @@ resource "aws_security_group" "instance" {
 resource "aws_instance" "factorio" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
-  availability_zone           = var.availability_zone
   associate_public_ip_address = true
   tags                        = var.tags
 

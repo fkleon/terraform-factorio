@@ -10,12 +10,6 @@ variable "region" {
   description = "AWS region to create resources in."
 }
 
-variable "availability_zone" {
-  type        = string
-  default     = "eu-central-1b"
-  description = "AWS availablility zone to create resources in."
-}
-
 variable "tags" {
   type = map(string)
   default = {
