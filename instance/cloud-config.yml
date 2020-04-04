@@ -5,10 +5,6 @@ package_upgrade: true
 packages:
   - nvme-cli
   - awscli
-bootcmd:
-  - test -z "$(blkid {$ebs_device_name})" && mkfs -t ext4 -L factorio ${ebs_device_name}
-mounts:
-  - [ "${ebs_device_name}", "/mnt/factorio", "ext4", "defaults,nofail", "0", "2" ]
 runcmd:
   - set -e
   - adduser --disabled-login --gecos GECOS --no-create-home --home /opt/factorio factorio

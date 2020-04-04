@@ -48,7 +48,6 @@ data "template_file" "cloud_config" {
   template = file("./cloud-config.yml")
   vars = {
     aws_region             = var.region
-    ebs_device_name        = var.ebs_device_name_int
     factorio_version       = var.factorio_version
   }
 }
