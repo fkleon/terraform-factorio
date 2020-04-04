@@ -7,6 +7,7 @@ packages:
   - awscli
 runcmd:
   - set -e
+  - while [ ! -b $(readlink -f ${ebs_device_path}) ]; do echo "waiting for EBS attachment..">&2; sleep 5; done
   - test -z "$(blkid ${ebs_device_path})" && mkfs -t ext4 -L factorio ${ebs_device_path}
   - mount -t ext4 -o noatime -L factorio /opt
   - adduser --disabled-login --gecos GECOS --no-create-home --home /opt/factorio factorio
