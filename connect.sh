@@ -21,4 +21,7 @@ if [ -f "$SSH_PRIVATE_KEY_FILE" ]; then
   fi
 fi
 
-ssh -oStrictHostKeyChecking=accept-new -i "$SSH_PRIVATE_KEY_FILE" -l ubuntu ${SERVER_IP}
+ssh -o "StrictHostKeyChecking accept-new" \
+  -o "UserKnownHostsFile /dev/null" \
+  -i "$SSH_PRIVATE_KEY_FILE" \
+  -l ubuntu ${SERVER_IP}
