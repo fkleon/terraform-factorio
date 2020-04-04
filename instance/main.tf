@@ -25,7 +25,7 @@ locals {
   # To load latest save game: --start-server-load-latest
   save_game_arg = (var.factorio_save_game != "" ?
     "--start-server ${local.save_game_dir}/${var.factorio_save_game}.zip'" :
-    "--start-server-load-latest")
+  "--start-server-load-latest")
 }
 
 data "aws_ami" "ubuntu" {
@@ -47,13 +47,13 @@ data "aws_ami" "ubuntu" {
 data "template_file" "cloud_config" {
   template = file("./cloud-config.yml")
   vars = {
-    aws_region             = var.region
-    factorio_version       = var.factorio_version
+    aws_region       = var.region
+    factorio_version = var.factorio_version
   }
 }
 
 resource "tls_private_key" "ssh" {
-  algorithm   = "RSA"
+  algorithm = "RSA"
 }
 
 resource "aws_key_pair" "key" {

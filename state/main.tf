@@ -33,7 +33,7 @@ resource "aws_s3_bucket" "backup" {
 }
 
 resource "aws_s3_bucket_policy" "backup" {
-  bucket = "${aws_s3_bucket.backup.id}"
+  bucket = aws_s3_bucket.backup.id
 
   policy = <<POLICY
 {
@@ -111,11 +111,11 @@ POLICY
 }
 
 resource "aws_iam_role_policy_attachment" "backup" {
-  role = "${aws_iam_role.backup.name}"
-  policy_arn = "${aws_iam_policy.backup.arn}"
+  role       = aws_iam_role.backup.name
+  policy_arn = aws_iam_policy.backup.arn
 }
 
 resource "aws_iam_instance_profile" "backup" {
   name = "factorio-instance-profile"
-  role = "${aws_iam_role.backup.name}"
+  role = aws_iam_role.backup.name
 }
