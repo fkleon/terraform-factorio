@@ -10,5 +10,6 @@ runcmd:
   - adduser --disabled-login --gecos GECOS --no-create-home --home /opt/factorio factorio
   - curl -L "https://www.factorio.com/get-download/${factorio_version}/headless/linux64" -o /opt/factorio.tar.gz
   - tar -C /opt -x -f /opt/factorio.tar.gz
+  - rm /opt/factorio.tar.gz
   - mkdir -p /opt/factorio/saves
   - chown factorio. -R /opt/factorio
