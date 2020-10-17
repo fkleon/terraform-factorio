@@ -7,7 +7,7 @@ backups to S3.
 
 ### Requirements
 
-* [Terraform](https://www.terraform.io) version 0.12.x
+* [Terraform](https://www.terraform.io) version 0.13.x
 * Amazon AWS account and [access keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys)
 
 ### Initial setup
