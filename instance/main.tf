@@ -1,22 +1,5 @@
-terraform {
-  required_version = ">= 0.12"
-}
-
 provider "aws" {
-  region  = var.region
-  version = "~> 2.13"
-}
-
-provider "template" {
-  version = "~> 2.1"
-}
-
-provider "tls" {
-  version = "~> 2.1"
-}
-
-provider "null" {
-  version = "~> 2.1"
+  region = var.region
 }
 
 locals {
